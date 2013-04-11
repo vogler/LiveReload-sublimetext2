@@ -300,9 +300,12 @@ Timer = (function() {
     };
   }
 
-  Timer.prototype.start = function(timeout) {
+  Timer.prototype.start = function(timeout, func) {
     if (this.running) {
       clearTimeout(this.id);
+    }
+    if(typeof func !== undefined){
+      this.func = func;
     }
     this.id = setTimeout(this._handler, timeout);
     return this.running = true;
@@ -470,7 +473,7 @@ Reloader = Reloader = (function() {
   function Reloader(window, console, Timer) {
     this.window = window;
     this.console = console;
-    this.Timer = Timer;
+    this.Timer = new Timer();
     this.document = this.window.document;
     this.importCacheWaitPeriod = 200;
     this.plugins = [];

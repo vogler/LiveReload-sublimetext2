@@ -20,4 +20,7 @@ class SimpleRefresh(LiveReload.Plugin, sublime_plugin.EventListener):
     file_types = '*'
 
     def on_post_save(self, view):
-        self.refresh(os.path.basename(view.file_name()))
+        f = os.path.basename(view.file_name())
+        if not f.endswith(".styl"):
+            print("SimpleRefresh:", f)
+            self.refresh(os.path.basename(view.file_name()))
